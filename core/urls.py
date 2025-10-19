@@ -11,7 +11,7 @@ urlpatterns = [
     path('livro/adicionar_livro/', views.adicionar_livro, name='adicionar_livro'),
     path('livro/editar_livro/<int:pk>/', views.editar_livro, name='editar_livro'),
     path('livro/deletar_livro/<int:pk>/', views.deletar_vaga, name='deletar_livro'),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
 
 if settings.DEBUG:

@@ -31,28 +31,21 @@ class LoginForm(AuthenticationForm):
     username = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}))
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Senha'}))
 
+
+
 class PerfilForm(forms.ModelForm):
     model = Usuario
-    fields = '__all__'
+    fields = ['cpf', 'nome', 'sobrenome', 'email', 'endereco', 'telefone', 'data_nascimento', 'cargo', 'foto_perfil']
     widgets = {
-        'cpf': forms.CharField(attrs={'class': 'form-control', 'placeholder': 'CPF'}),
-        'nome': forms.CharField(attrs={'class': 'form-control', 'placeholder': 'Nome'}),
-        'sobrenome': forms.CharField(attrs={'class': 'form-control', 'placeholder': 'Sobrenome'}),
-        'email': forms.EmailField(attrs={'class': 'form-control', 'placeholder': 'Email'}),
-        'endereco': forms.CharField(attrs={'class': 'form-control', 'placeholder': 'Endereço'}),
-        'telefone': forms.CharField(attrs={'class': 'form-control', 'placeholder': 'Telefone'}),
-        'data_nascimento': forms.DateField(attrs={'class': 'form-control', 'placeholder': 'Data de Nascimento', 'type': 'date'}),
-        'foto_perfil': forms.FileInput(attrs={'class': 'form-control'})
-    }
-    labels = {
-        'cpf': 'CPF',
-        'nome': 'Nome',
-        'sobrenome': 'Sobrenome',
-        'email': 'Email',
-        'endereco': 'Endereço',
-        'telefone': 'Telefone',
-        'data_nascimento': 'Data de Nascimento',
-        'foto_perfil': 'Foto de Perfil'
+        'cpf': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'CPF'}),
+        'nome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Nome'}),
+        'sobrenome': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Sobrenome'}),
+        'email': forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
+        'endereco': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Endereço'}),
+        'telefone': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Telefone'}),
+        'data_nascimento': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+        'cargo': forms.Select(attrs={'class': 'form-control'}),
+        'foto_perfil': forms.FileInput(attrs={'class': 'form-control'}),
     }
 
 class UsuarioFiltroForm(forms.Form):

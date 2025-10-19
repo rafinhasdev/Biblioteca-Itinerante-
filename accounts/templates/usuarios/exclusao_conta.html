@@ -1,0 +1,427 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Usuário - WorkApp{% endblock %}
+
+{% block content %}
+
+<style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8f7ff 0%, #ede9fe 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4c1d95;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.1);
+            padding: 48px;
+            width: 100%;
+            max-width: 520px;
+            border: 1px solid rgba(196, 181, 253, 0.2);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .warning-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 50%;
+            margin: 0 auto 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        .warning-icon svg {
+            width: 40px;
+            height: 40px;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3);
+            }
+            50% {
+                transform: scale(1.05);
+                box-shadow: 0 12px 32px rgba(239, 68, 68, 0.4);
+            }
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #4c1d95;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #ef4444;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+
+        .description {
+            font-size: 16px;
+            color: #7c3aed;
+            line-height: 1.6;
+            margin-bottom: 32px;
+            background: #faf5ff;
+            padding: 20px;
+            border-radius: 12px;
+            border-left: 4px solid #8b5cf6;
+        }
+
+        .user-info {
+            background: #f1f5f9;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 32px;
+            text-align: left;
+        }
+
+        .user-info h3 {
+            color: #4c1d95;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+
+        .user-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .user-detail:last-child {
+            border-bottom: none;
+        }
+
+        .user-detail .label {
+            font-weight: 500;
+            color: #6b21a8;
+        }
+
+        .user-detail .value {
+            color: #4c1d95;
+            font-weight: 400;
+        }
+
+        .confirmation-section {
+            margin: 32px 0;
+            padding: 24px;
+            background: #fef2f2;
+            border: 2px solid #fecaca;
+            border-radius: 12px;
+        }
+
+        .confirmation-text {
+            font-size: 16px;
+            color: #dc2626;
+            margin-bottom: 16px;
+            font-weight: 500;
+        }
+
+        .confirmation-input {
+            width: 100%;
+            padding: 16px 20px;
+            border: 2px solid #fecaca;
+            border-radius: 12px;
+            font-size: 16px;
+            background: white;
+            color: #dc2626;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            outline: none;
+            margin-bottom: 16px;
+        }
+
+        .confirmation-input:focus {
+            border-color: #ef4444;
+            box-shadow: 0 0 0 4px rgba(239, 68, 68, 0.1);
+        }
+
+        .confirmation-input.correct {
+            border-color: #10b981;
+            background: #ecfdf5;
+            color: #059669;
+        }
+
+        .input-hint {
+            font-size: 14px;
+            color: #7c2d12;
+            font-style: italic;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 16px;
+            margin-top: 32px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-cancel {
+            background: #f8fafc;
+            color: #475569;
+            border: 2px solid #e2e8f0;
+        }
+
+        .btn-cancel:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(71, 85, 105, 0.1);
+        }
+
+        .btn-delete {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-delete:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(239, 68, 68, 0.4);
+        }
+
+        .btn-delete:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-delete:active {
+            transform: translateY(0);
+        }
+
+        .loading {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .success-message {
+            background: #dcfce7;
+            border: 2px solid #bbf7d0;
+            color: #166534;
+            padding: 24px;
+            border-radius: 12px;
+            margin-top: 24px;
+            display: none;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .success-message h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 24px;
+            color: #8b5cf6;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #7c3aed;
+        }
+
+        @media (max-width: 540px) {
+            .container {
+                margin: 20px 10px;
+                padding: 32px 24px;
+            }
+            
+            .title {
+                font-size: 24px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .user-detail {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+
+        /* Animações */
+        .container {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s ease-out forwards;
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="confirmationContainer">
+        <div class="warning-icon">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L1 21h22L12 2zm0 3.99L19.53 19H4.47L12 5.99zM11 16h2v2h-2v-2zm0-6h2v4h-2v-4z"/>
+            </svg>
+        </div>
+
+        <h1 class="title">Confirmar Exclusão</h1>
+        <p class="subtitle">Esta ação não pode ser desfeita</p>
+
+        <div class="description">
+            <strong>Atenção:</strong> Você está prestes a excluir permanentemente sua conta da Biblioteca Digital. 
+            Todos os seus dados, histórico de empréstimos e preferências serão removidos definitivamente.
+        </div>
+
+        <div class="user-info">
+            <h3>Dados da Conta</h3>
+            <div class="user-detail">
+                <span class="label">Nome:</span>
+                <span class="value" id="userName">{{usuario.nome}}</span>
+            </div>
+            <div class="user-detail">
+                <span class="label">Email:</span>
+                <span class="value" id="userEmail">{{usuario.email}}</span>
+            </div>
+            <div class="user-detail">
+                <span class="label">Membro desde:</span>
+                <span class="value" id="memberSince">15 de Janeiro de 2023</span>
+            </div>
+            <div class="user-detail">
+                <span class="label">Livros emprestados:</span>
+                <span class="value" id="booksCount">12 livros</span>
+            </div>
+        </div>
+
+        <div class="confirmation-section">
+            <p class="confirmation-text">
+                Para confirmar a exclusão, digite "<strong>EXCLUIR CONTA</strong>" no campo abaixo:
+            </p>
+            <input 
+                type="text" 
+                id="confirmationInput" 
+                class="confirmation-input" 
+                placeholder="Digite: EXCLUIR CONTA"
+                autocomplete="off"
+            >
+            <p class="input-hint">Esta confirmação é obrigatória para prosseguir</p>
+        </div>
+
+        <div class="button-group">
+            <button type="button" class="btn btn-cancel" onclick="cancelDeletion()">
+                Cancelar
+            </button>
+            <button type="button" class="btn btn-delete" id="deleteBtn" disabled onclick="confirmDeletion()">
+                <span class="btn-text">Excluir Conta</span>
+                <div class="loading" id="loadingSpinner"></div>
+            </button>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <h3>✅ Conta excluída com sucesso</h3>
+            <p>Sua conta foi removida permanentemente. Obrigado por ter usado a Biblioteca Digital.</p>
+            <a href="login.html" class="back-link">Ir para página inicial</a>
+        </div>
+    </div>
+
+    <script>
+
+        window.addEventListener('beforeunload', function(e) {
+            if (!deleteBtn.disabled || confirmationInput.value.trim()) {
+                e.preventDefault();
+                e.returnValue = 'Você tem certeza que deseja sair? As informações inseridas serão perdidas.';
+            }
+        });
+    </script>
+{% endblock %}

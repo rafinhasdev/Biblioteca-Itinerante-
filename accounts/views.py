@@ -22,7 +22,7 @@ def cadastrar_usuarios(request):
     else:
         form = CustomUserCreationForm()
     
-    return render(request, 'cadastrar_usuarios.html', {'form': form})
+    return render(request, 'usuarios/cadastrar.html', {'form': form})
 
 def login_view(request):
     if request.user.is_authenticated:
@@ -47,7 +47,7 @@ def login_view(request):
     else:
         form = LoginForm()
     
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'usuarios/login.html', {'form': form})
 
 def logout_view(request):
     logout(request)
