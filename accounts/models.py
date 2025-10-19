@@ -7,7 +7,6 @@ class Usuario(AbstractUser):
         'Cliente',
         'Autor',
         'Editor',
-        'Administrador'
     ]
 
     cpf = models.CharField(max_length=11, unique=True)
