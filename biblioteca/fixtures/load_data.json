@@ -1,0 +1,81 @@
+[
+  {
+    "model": "biblioteca.categoria",
+    "pk": 1,
+    "fields": { "nome": "Ficção Científica" }
+  },
+  {
+    "model": "biblioteca.categoria",
+    "pk": 2,
+    "fields": { "nome": "Romance" }
+  },
+  {
+    "model": "biblioteca.categoria",
+    "pk": 3,
+    "fields": { "nome": "Fantasia" }
+  },
+  {
+    "model": "biblioteca.editora",
+    "pk": 1,
+    "fields": {
+      "nome": "Editora Alfa",
+      "endereco": "Rua das Letras, 123 - São Paulo",
+      "telefone": "(11) 1234-5678",
+      "email": "contato@editoraalfa.com",
+      "site": "https://www.editoraalfa.com"
+    }
+  },
+  {
+    "model": "biblioteca.editora",
+    "pk": 2,
+    "fields": {
+      "nome": "Editora Beta",
+      "endereco": "Av. dos Livros, 456 - Rio de Janeiro",
+      "telefone": "(21) 9876-5432",
+      "email": "contato@editorabeta.com",
+      "site": "https://www.editorabeta.com"
+    }
+  },
+  {
+    "model": "biblioteca.livro",
+    "pk": 1,
+    "fields": {
+      "titulo": "Viagem ao Centro da Terra",
+      "descricao": "Um clássico da ficção científica de Júlio Verne.",
+      "autor": "Júlio Verne",
+      "ano_publicacao": 1864,
+      "editora": 1,
+      "isbn": "9788578270698",
+      "categoria": 1,
+      "capa": ""
+    }
+  },
+  {
+    "model": "biblioteca.livro",
+    "pk": 2,
+    "fields": {
+      "titulo": "Dom Casmurro",
+      "descricao": "Um dos romances mais conhecidos de Machado de Assis.",
+      "autor": "Machado de Assis",
+      "ano_publicacao": 1899,
+      "editora": 2,
+      "isbn": "9788533613379",
+      "categoria": 2,
+      "capa": ""
+    }
+  },
+  {
+    "model": "biblioteca.livro",
+    "pk": 3,
+    "fields": {
+      "titulo": "O Hobbit",
+      "descricao": "Uma aventura de fantasia escrita por J.R.R. Tolkien.",
+      "autor": "J.R.R. Tolkien",
+      "ano_publicacao": 1937,
+      "editora": 1,
+      "isbn": "9788578277109",
+      "categoria": 3,
+      "capa": ""
+    }
+  }
+]

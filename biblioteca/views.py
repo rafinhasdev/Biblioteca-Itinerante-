@@ -9,38 +9,37 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 def listar_livros(request):
     livros = Livro.objects.all()
 
-    filtro_form = FiltroForm(request.GET or None)
-
+    filtro_form = FiltroForm(request.GET)
     if filtro_form.is_valid():
+        categoria = filtro_form.cleaned_data['categoria']
+        editora = filtro_form.cleaned_data['editora']
+        autor = filtro_form.cleaned_data['autor']
 
-        autor = filtro_form.cleaned_data.get('autor')
-        if autor:
-            livros = livros.filter(autor__icontains=autor)
-
-        editora = filtro_form.cleaned_data.get('editora')
-        if editora:
-            livros = livros.filter(editora__icontains=editora)
-
-        categoria = filtro_form.cleaned_data.get('categoria')
         if categoria:
             livros = livros.filter(categoria__nome__icontains=categoria)
-
-    itens_por_pagina = 6
+        if editora:
+            livros = livros.filter(editora__nome__icontains=editora)
+        if autor:
+            livros = livros.filter(autor__icontains=autor)
+        
+    itens_por_pagina = 5
     paginator = Paginator(livros, itens_por_pagina)
     page = request.GET.get('page')
-
     try:
-        livros_paginados = paginator.page(page)
+        livros = paginator.page(page)
     except PageNotAnInteger:
-        livros_paginados = paginator.page(1)
+        livros = paginator.get_page(1)
     except EmptyPage:
-        livros_paginados = paginator.page(paginator.num_pages)
-    
-    return render(request, 'biblioteca/listar_livros.html', {
-        'livros': livros_paginados, 
+        livros = paginator.get_page(paginator.num_pages)
+
+    context = {
+        'livros': livros,
         'filtro_form': filtro_form,
-        'pagina': page
-    })
+        'titulo': 'Livros',
+        'page': page
+    }
+
+    return render(request, 'biblioteca/index.html', context)
 
 @login_required
 def adicionar_livro(request):
