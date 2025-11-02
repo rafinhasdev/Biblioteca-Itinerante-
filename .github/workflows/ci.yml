@@ -1,0 +1,36 @@
+# Identifica o workflow no GitHub
+name: Testes Automatizados
+
+# Executa ao atualizar main e dev ou PRs na dev
+on:
+  push:
+    branches: [ main, dev ]
+  pull_request:
+    branches: [ dev ]
+
+# Define o job de teste para rodar no Ubuntu
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    # Cria jobs para cada versão do Python listada
+    strategy:
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+    - name: Faz Checkout do Código
+      uses: actions/checkout@v5
+
+    - name: Configura Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Instala Dependências
+      run: |
+        python -m pip install --upgrade pip
+        pip install .[test]
+
+    - name: Executa Testes
+      run: |
+        python ./manage.py test

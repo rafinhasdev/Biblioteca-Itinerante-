@@ -1,0 +1,42 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Biblioteca-Itinerante"
+version = "0.1.0"
+description = "PROJETO DE PDS"
+authors = [{name = "José Rafael", email = "rafaelnunes.prof@gmail.com"}]
+readme = "README.md"
+
+[project.urls]
+Homepage = "https://github.com/rafinhasdev/Biblioteca-Itinerante-"
+Repository = "https://github.com/rafinhasdev/Biblioteca-Itinerante-"
+"Bug Tracker" = "https://github.com/rafinhasdev/Biblioteca-Itinerante-/issues"
+
+[project.optional-dependencies]  # Desenvolvimento (dev)
+lint = [
+    "black",
+    "flake8",
+    "isort"
+]
+
+test = [
+    "pytest",
+    "pytest-django",
+    "coverage",
+    "asgiref",
+    "pillo",
+    "sqlparse",
+    "tzdata",
+]
+
+dev = [
+    "black",
+    "flake8",
+    "isort",
+    "pytest",
+    "pytest-django",
+    "coverage",
+    
+]
